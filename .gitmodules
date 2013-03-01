@@ -1,0 +1,3 @@
+[submodule "vendor/phpplus-mode"]
+	path = vendor/phpplus-mode
+	url = https://github.com/echosa/phpplus-mode
