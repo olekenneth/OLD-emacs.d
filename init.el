@@ -3,8 +3,8 @@
                     (or (buffer-file-name) load-file-name)))
 
 (add-to-list 'load-path dotfiles-dir)
-;; (add-to-list 'load-path "~/.emacs.d/vendor/")
-;; (add-to-list 'load-path "~/.emacs.d/vendor/phpplus-mode")
+(add-to-list 'load-path "~/.emacs.d/vendor/")
+(add-to-list 'load-path "~/.emacs.d/vendor/phpplus-mode")
 
 ;; ELPA
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -80,7 +80,5 @@
                                         (match-end 1) "f")
                         nil)))))
 
-
-
-;;
 (require 'key-bindings)
+(require 'setup-php)
