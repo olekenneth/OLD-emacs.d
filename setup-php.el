@@ -2,7 +2,7 @@
   (require 'php-mode)
   (require 'php+-mode)
   (php+-mode-setup)
-  
+
   (require 'multi-web-mode)
   (setq mweb-default-major-mode 'html-mode)
   (setq mweb-tags '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
@@ -13,6 +13,7 @@
 
 (add-hook 'after-init-hook 'setup-multi-web-mode)
 (add-hook 'php+-mode-hook (lambda ()
+                            (add-hook 'before-save-hook 'untabify-buffer)
                             (require 'php-electric)
                             (php-electric-mode)
                             (require 'flymake-php)
@@ -24,14 +25,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(php+-mode-delete-trailing-whitespace t)
- '(php+-mode-php-compile-on-save t)
+ '(php+-mode-php-compile-on-save nil)
  '(php+-mode-show-project-in-modeline t)
  '(php+-mode-show-trailing-whitespace t)
  '(php-doc-default-author (quote ("Ole-Kenneth Rangnes" . "ok@vg.no")))
  '(php-file-patterns (quote ("\\.php[s345t]?\\'" "\\.inc\\'")))
  '(php-html-basic-offset 4)
-;; '(php-project-list (quote (("direkte" "~/webdev/html/livestudio" "~/webdev/html/livestudio/TAGS" nil "" nil (("" . "") "" "" "" "" "" "" "" "") "Livestudio" ""))))
-'(phpcs-standard "PHPCS"))
+ ;; '(php-project-list (quote (("direkte" "~/webdev/html/livestudio" "~/webdev/html/livestudio/TAGS" nil "" nil (("" . "") "" "" "" "" "" "" "" "") "Livestudio" ""))))
+ '(phpcs-standard "PHPCS"))
 
 (add-hook 'html-mode-hook
           (lambda ()
