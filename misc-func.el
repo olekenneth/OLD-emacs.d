@@ -24,15 +24,15 @@ Symbols matching the text at point are put first in the completion list."
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -90,5 +90,37 @@ Symbols matching the text at point are put first in the completion list."
           "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
+
+(defun js-skeleton (scopeName)
+  "Insert a Javascript skeleton"
+  (interactive (list
+                (read-string "Scope name: ")))
+  (insert (concat "(function(window, $) {\n"
+                  "    var " scopeName ";\n"
+                  "\n"
+                  "    " scopeName " = function() {\n"
+                  "        this.defaults = {\n"
+                  "            someKey: 'someValue'\n"
+                  "        };\n"
+                  "        this.options = null;\n"
+                  "    };\n"
+                  "\n"
+                  "    $.extend(" scopeName ".prototype, {\n"
+                  "        init: function(options) {\n"
+                  "            if (typeof options != 'undefined') {\n"
+                  "                this.options = $.extend(this.defaults, options);\n"
+                  "            } else {\n"
+                  "                this.options = this.defaults;\n"
+                  "            }\n"
+                  "        }\n"
+                  "    });\n"
+                  "\n"
+                  "    window." scopeName " = " scopeName ";\n"
+                  "})(this, jQuery);\n"
+                  "\n"
+                  "var " scopeName " = new window." scopeName "();\n"
+                  scopeName ".init();")))
+
+;;(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet") (require 'yasnippet) (yas/global-mode 1)
 
 (provide 'misc-func)
