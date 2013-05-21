@@ -50,9 +50,6 @@
 
 ;; (global-set-key "\C-cø" 'ace-jump-mode)
 
-                                       
-;      mac-option-modifier nil
-;      mac-command-modifier nil
 (setq mac-option-modifier nil
       mac-command-modifier 'meta)
 

@@ -169,7 +169,7 @@ You can replace \"en\" with your ISO language code."
   :type 'string
   :group 'php)
 
-(defcustom php-completion-file ""
+(defcustom php-completion-file "/Users/olekenneth/.emacs.d/VG/php-completion-file"
   "Path to the file which contains the function names known to PHP."
   :type 'string
   :group 'php)

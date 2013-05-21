@@ -5,6 +5,7 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path "~/.emacs.d/vendor/")
 (add-to-list 'load-path "~/.emacs.d/vendor/phpplus-mode")
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-flymake-phpcs")
 
 ;; ELPA
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -37,6 +38,13 @@
 
 ;; show line numbers on the side
 (global-linum-mode t)
+
+;; Disable newline at end of file
+(setq mode-require-final-newline nil)
+(setq require-final-newline nil)
+
+;; Set UTF-8 and LF
+(set-buffer-file-coding-system 'utf-8-unix t)
 
 (defvar my-linum-format-string "%3d")
 
@@ -115,7 +123,51 @@
                                         (match-end 1) "f")
                         nil)))))
 
+
+
+(defun bury-compile-buffer-if-successful (buffer string)
+  "Bury a compilation buffer if succeeded without warnings"
+  (if (and
+       (string-match "compilation" (buffer-name buffer))
+       (string-match "finished" string)
+       (not
+        (with-current-buffer buffer
+          (search-forward "warning" nil t))))
+      (run-with-timer 0.01 nil
+                      (lambda (buf)
+                        (bury-buffer buf)
+                        (delete-window (get-buffer-window buf))
+                        (kill-buffer buf)
+                        (shell-command "growlnotify -m 'Success' -t 'PHP Compilation' --appIcon 'Emacs' &> /dev/null")
+                        )
+                      buffer)))
+(add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)
+
+;;kill-buffer-and-window
+
+;; If flymake_phpcs isn't found correctly, specify the full path
+;; (setq flymake-phpcs-command "/Users/olekenneth/.emacs.d/vendor/emacs-flymake-phpcs/bin/flymake_phpcs")
+;; Customize the coding standard checked by phpcs
+(setq flymake-phpcs-standard "/Users/olekenneth/.emacs.d/VG")
+
+;; Show the name of sniffs in warnings (eg show
+;; "Generic.CodeAnalysis.VariableAnalysis.UnusedVariable" in an unused
+;; variable warning)
+(setq flymake-phpcs-show-rule t)
+
+;; Growl
+(require 'growl)
+
+(require 'flymake-phpcs)
+(require 'psvn)
 (require 'misc-func)
 (require 'key-bindings)
 (require 'setup-php)
 (require 'setup-scss)
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -121,6 +121,28 @@ Symbols matching the text at point are put first in the completion list."
                   "var " scopeName " = new window." scopeName "();\n"
                   scopeName ".init();")))
 
+
+;; Move line up and down function
+(defun move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (next-line)
+      (transpose-lines 1))
+    (next-line)
+    (move-to-column col)))
+
+(defun move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (next-line)
+      (transpose-lines -1))
+    (move-to-column col)))
+
+(global-set-key [\M-down] 'move-line-down)
+(global-set-key [\M-up] 'move-line-up)
+
 ;;(add-to-list 'load-path "~/.emacs.d/plugins/yasnippet") (require 'yasnippet) (yas/global-mode 1)
 
 (provide 'misc-func)
