@@ -29,7 +29,7 @@
  '(php+-mode-delete-trailing-whitespace t)
  '(php+-mode-php-compile-on-save t)
  '(php+-mode-js-compile-on-save t)
- '(php-test-compile-tests '(phpcs phpmd))
+ '(php-test-compile-tests '(phpcs))
  '(php+-mode-show-project-in-modeline t)
  '(php+-mode-show-trailing-whitespace t)
  '(php-completion-file "~/.emacs.d/VG/php-completion-file")

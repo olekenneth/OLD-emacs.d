@@ -7,10 +7,7 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/phpplus-mode")
 (add-to-list 'load-path "~/.emacs.d/vendor/emacs-flymake-phpcs")
 
-;; ELPA
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+(require 'setup-packages)
 
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
@@ -108,6 +105,22 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
+;; Undo tree
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+;; Keep region when undoing in region
+(defadvice undo-tree-undo (around keep-region activate)
+  (if (use-region-p)
+      (let ((m (set-marker (make-marker) (mark)))
+            (p (set-marker (make-marker) (point))))
+        ad-do-it
+        (goto-char p)
+        (set-mark m)
+        (set-marker p nil)
+        (set-marker m nil))
+    ad-do-it))
+
 
 ;; After elpa load
 (defun my-after-init ()
@@ -122,7 +135,6 @@
               (0 (progn (compose-region (match-beginning 1)
                                         (match-end 1) "f")
                         nil)))))
-
 
 
 (defun bury-compile-buffer-if-successful (buffer string)
@@ -143,6 +155,31 @@
                       buffer)))
 (add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)
 
+;; SMEX
+(global-set-key [(meta x)] (lambda ()
+                             (interactive)
+                             (or (boundp 'smex-cache)
+                                 (smex-initialize))
+                             (global-set-key [(meta x)] 'smex)
+                             (smex)))
+
+(global-set-key [(shift meta x)] (lambda ()
+                                   (interactive)
+                                   (or (boundp 'smex-cache)
+                                       (smex-initialize))
+                                   (global-set-key [(shift meta x)] 'smex-major-mode-commands)
+                                   (smex-major-mode-commands)))
+
+(defadvice smex (around space-inserts-hyphen activate compile)
+  (let ((ido-cannot-complete-command 
+         `(lambda ()
+            (interactive)
+            (if (string= " " (this-command-keys))
+                (insert ?-)
+              (funcall ,ido-cannot-complete-command)))))
+    ad-do-it))
+
+
 ;;kill-buffer-and-window
 
 ;; If flymake_phpcs isn't found correctly, specify the full path
@@ -155,15 +192,16 @@
 ;; variable warning)
 (setq flymake-phpcs-show-rule t)
 
-;; Growl
-(require 'growl)
-
-(require 'flymake-phpcs)
-(require 'psvn)
 (require 'misc-func)
 (require 'key-bindings)
 (require 'setup-php)
 (require 'setup-scss)
+(require 'setup-js)
+(require 'setup-html)
+
+;; Flycheck
+(add-hook 'find-file-hook 'flycheck-mode)
+
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
