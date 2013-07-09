@@ -1,4 +1,4 @@
-;; Load path etc.
+;;; Emacs.d --- Load path etc.
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
 
@@ -35,6 +35,10 @@
 
 ;; show line numbers on the side
 (global-linum-mode t)
+
+;; Open new files in same window
+(setq ns-pop-up-frames nil)
+(x-focus-frame nil)
 
 ;; Disable newline at end of file
 (setq mode-require-final-newline nil)
@@ -150,6 +154,7 @@
                         (bury-buffer buf)
                         (delete-window (get-buffer-window buf))
                         (kill-buffer buf)
+;;                        (shell-command "terminal-notifier -message 'Success' -title 'PHP Compilation'")
                         (shell-command "growlnotify -m 'Success' -t 'PHP Compilation' --appIcon 'Emacs' &> /dev/null")
                         )
                       buffer)))
@@ -201,11 +206,3 @@
 
 ;; Flycheck
 (add-hook 'find-file-hook 'flycheck-mode)
-
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
