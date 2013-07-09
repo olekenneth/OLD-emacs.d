@@ -21,6 +21,19 @@
                             (flymake-php-load)
                             ))
 
+(flycheck-declare-checker flycheck-checker-php+
+  "PHP+ mode flycheck"
+  :command '("php" "-l" "-d" "error_reporting=E_ALL" "-d" "display_errors=1" "-d" "log_errors=0" source)
+  :error-patterns '(("\\(?:Parse\\|Fatal\\|syntax\\) error[:,] \\(.*\\) in \\(.*\\) on line \\([0-9]+\\)" error))
+  :modes 'php+-mode)
+
+(defun my-after-init-php ()
+  "After php init hook."
+  (require 'flycheck)
+  (add-to-list 'flycheck-checkers 'flycheck-checker-php+))
+
+(add-hook 'after-init-hook 'my-after-init-php)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
