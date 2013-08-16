@@ -51,6 +51,10 @@
 
 (global-set-key (kbd "C-c q") 'join-line)
 
+;; Move text up/down
+(global-set-key (kbd "M-<up>") 'move-text-up)
+(global-set-key (kbd "M-<down>") 'move-text-down)
+
 ;; (global-set-key "\C-cø" 'ace-jump-mode)
 
 (setq mac-option-modifier nil
