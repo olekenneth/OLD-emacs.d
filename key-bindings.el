@@ -55,6 +55,9 @@
 (global-set-key (kbd "M-<up>") 'move-text-up)
 (global-set-key (kbd "M-<down>") 'move-text-down)
 
+;; Auto-complete remap
+(global-set-key (kbd "C-<tab>") 'auto-complete)
+
 ;; (global-set-key "\C-cø" 'ace-jump-mode)
 
 (setq mac-option-modifier nil

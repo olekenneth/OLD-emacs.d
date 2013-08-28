@@ -1,26 +1,32 @@
+;;; setup-js.el --- Javascript setup / options
+
+;;; Commentary:
+
+;;; Code:
+
+(defvar jsl-conf (file-truename "~/.emacs.d/jsl.conf"))
+
 (flycheck-declare-checker flycheck-checker-jslint
   "jslint checker"
-  :command '("jsl" "-process" source)
+  :command '("jsl" (config-file "-conf" jsl-conf) "-process" source)
   :error-patterns '(("^\\(.+\\)\:\\([0-9]+\\)\: \\(SyntaxError\:.+\\)\:$" error)
                     ("^\\(.+\\)(\\([0-9]+\\)): \\(SyntaxError:.+\\)$" error)
                     ("^\\(.+\\)(\\([0-9]+\\)): \\(lint \\)?\\(warning:.+\\)$" warning)
                     ("^\\(.+\\)\:\\([0-9]+\\)\: strict \\(warning: trailing comma.+\\)\:$" warning))
   :modes 'js2-mode)
 
-(defun my-after-init-js ()
-  "After js init hook."
+(defun after-init-js2-mode ()
+  "After js2-mode init."
   (require 'flycheck)
-  (add-to-list 'flycheck-checkers 'flycheck-checker-jslint))
+  (require 'auto-complete)
+  (add-to-list 'flycheck-checkers 'flycheck-checker-jslint)
+  (auto-complete-mode t)
+  (imenu-add-menubar-index)
+  (hs-minor-mode t))
 
-(add-hook 'after-init-hook 'my-after-init-js)
+(setq js2-global-externs '("define"))
 
-(defun my-jshint ()
-  "jshint enabled"
-  (require 'flymake-jshint)
-  (add-hook 'after-init-hook
-            (lambda () (flymake-mode t)))
-  ;; Turns on flymake for all files which have a flymake mode
-  (add-hook 'find-file-hook 'flymake-find-file-hook)
-)
+(add-hook 'js2-mode-hook 'after-init-js2-mode)
 
 (provide 'setup-js)
+;;; setup-js.el ends here
