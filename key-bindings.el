@@ -1,6 +1,7 @@
 ;; My shortcuts - OKR
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
+
 ;; Font size
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
@@ -58,12 +59,17 @@
 ;; Auto-complete remap
 (global-set-key (kbd "C-<tab>") 'auto-complete)
 
-;; (global-set-key "\C-cø" 'ace-jump-mode)
+(global-set-key "\C-cø" 'ace-jump-mode)
 
-(setq mac-option-modifier nil
-      mac-command-modifier 'meta)
+;      mac-option-modifier nil
+;      mac-command-modifier nil
+;; (setq mac-option-modifier nil
+;;      mac-command-modifier 'meta)
 
 (global-set-key [kp-delete] 'delete-char)
 ;       x-select-enable-clipboard t)
+
+(define-key input-decode-map "\e[1;5A" [M-up])
+(define-key input-decode-map "\e[1;5B" [M-down])
 
 (provide 'key-bindings)

@@ -49,7 +49,7 @@
  '(php-doc-default-author (quote ("Ole-Kenneth Rangnes" . "ok@vg.no")))
  '(php-file-patterns (quote ("\\.php[s345t]?\\'" "\\.inc\\'")))
  '(php-html-basic-offset 4)
- '(phpcs-standard "/Users/olekenneth/.emacs.d/VG"))
+ '(phpcs-standard "VG"))
 
 (add-hook 'html-mode-hook
           (lambda ()

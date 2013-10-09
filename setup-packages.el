@@ -3,10 +3,11 @@
 ;;; Commentary:
 
 ;;; Code:
-(setq package-list '(php-mode multi-web-mode magit flymake-php ace-jump-mode twilight-theme
-                              switch-window smex flycheck tagedit undo-tree 
+(setq package-list '(php-mode multi-web-mode magit flymake-php ace-jump-mode
+                              switch-window smex flycheck tagedit undo-tree
                               scss-mode move-text
-                              auto-complete js2-mode))
+                              auto-complete js2-mode
+                              solarized-theme))
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")

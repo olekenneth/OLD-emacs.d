@@ -38,7 +38,7 @@
 
 ;; Open new files in same window
 (setq ns-pop-up-frames nil)
-(x-focus-frame nil)
+;; (x-focus-frame nil)
 
 ;; Disable newline at end of file
 (setq mode-require-final-newline nil)
@@ -47,28 +47,28 @@
 ;; Set UTF-8 and LF
 (set-buffer-file-coding-system 'utf-8-unix t)
 
-(defvar my-linum-format-string "%3d")
+;; (defvar my-linum-format-string "%3d")
 
-(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+;; (add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 
-(defun my-linum-get-format-string ()
-  (let* ((width (1+ (length (number-to-string
-                             (count-lines (point-min) (point-max))))))
-         (format (concat "%" (number-to-string width) "d")))
-    (setq my-linum-format-string format)))
+;; (defun my-linum-get-format-string ()
+;;   (let* ((width (1+ (length (number-to-string
+;;                              (count-lines (point-min) (point-max))))))
+;;          (format (concat "%" (number-to-string width) "d")))
+;;     (setq my-linum-format-string format)))
 
-(defvar my-linum-current-line-number 0)
+;; (defvar my-linum-current-line-number 0)
 
-(setq linum-format 'my-linum-relative-line-numbers)
+;; (setq linum-format 'my-linum-relative-line-numbers)
 
-(defun my-linum-relative-line-numbers (line-number)
-  (let ((offset (abs (- line-number my-linum-current-line-number))))
-    (propertize (format my-linum-format-string offset) 'face 'linum)))
+;; (defun my-linum-relative-line-numbers (line-number)
+;;   (let ((offset (abs (- line-number my-linum-current-line-number))))
+;;     (propertize (format my-linum-format-string offset) 'face 'linum)))
 
-(defadvice linum-update (around my-linum-update)
-  (let ((my-linum-current-line-number (line-number-at-pos)))
-    ad-do-it))
-(ad-activate 'linum-update)
+;; (defadvice linum-update (around my-linum-update)
+;;   (let ((my-linum-current-line-number (line-number-at-pos)))
+;;     ad-do-it))
+;; (ad-activate 'linum-update)
 
 ;; Auto update buffer from file, when not modified
 (global-auto-revert-mode t)
@@ -127,9 +127,9 @@
 
 
 ;; After elpa load
-(defun my-after-init ()
-  (require 'twilight-theme))
-(add-hook 'after-init-hook 'my-after-init)
+;; (defun my-after-init ()
+;;   (require 'twilight-theme))
+;; (add-hook 'after-init-hook 'my-after-init)
 
 ;; Javascript
 (add-to-list 'auto-mode-alist '(".js$" . js2-mode))
@@ -155,7 +155,7 @@
                         (delete-window (get-buffer-window buf))
                         (kill-buffer buf)
 ;;                        (shell-command "terminal-notifier -message 'Success' -title 'PHP Compilation'")
-                        (shell-command "growlnotify -m 'Success' -t 'PHP Compilation' --appIcon 'Emacs' &> /dev/null")
+;;                        (shell-command "growlnotify -m 'Success' -t 'PHP Compilation' --appIcon 'Emacs' &> /dev/null")
                         )
                       buffer)))
 (add-hook 'compilation-finish-functions 'bury-compile-buffer-if-successful)
@@ -190,7 +190,7 @@
 ;; If flymake_phpcs isn't found correctly, specify the full path
 ;; (setq flymake-phpcs-command "/Users/olekenneth/.emacs.d/vendor/emacs-flymake-phpcs/bin/flymake_phpcs")
 ;; Customize the coding standard checked by phpcs
-(setq flymake-phpcs-standard "/Users/olekenneth/.emacs.d/VG")
+;; (setq flymake-phpcs-standard "/Users/olekenneth/.emacs.d/VG")
 
 ;; Show the name of sniffs in warnings (eg show
 ;; "Generic.CodeAnalysis.VariableAnalysis.UnusedVariable" in an unused
@@ -203,6 +203,31 @@
 (require 'setup-scss)
 (require 'setup-js)
 (require 'setup-html)
+(require 'js-beautify)
 
 ;; Flycheck
 (add-hook 'find-file-hook 'flycheck-mode)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes (quote ("d677ef584c6dfc0697901a44b885cc18e206f05114c8a3b7fde674fce6180879" default)))
+ '(php+-mode-delete-trailing-whitespace t)
+ '(php+-mode-js-compile-on-save t)
+ '(php+-mode-php-compile-on-save t)
+ '(php+-mode-show-project-in-modeline t)
+ '(php+-mode-show-trailing-whitespace t)
+ '(php-completion-file "~/.emacs.d/VG/php-completion-file")
+ '(php-doc-default-author (quote ("Ole-Kenneth Rangnes" . "ok@vg.no")))
+ '(php-file-patterns (quote ("\\.php[s345t]?\\'" "\\.inc\\'")))
+ '(php-html-basic-offset 4)
+ '(php-test-compile-tests (quote (phpcs)))
+ '(phpcs-standard "VG")
+ '(scss-compile-at-save nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
