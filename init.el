@@ -34,7 +34,7 @@
 (show-paren-mode t)
 
 ;; show line numbers on the side
-(global-linum-mode t)
+; (global-linum-mode t)
 
 ;; Open new files in same window
 (setq ns-pop-up-frames nil)
