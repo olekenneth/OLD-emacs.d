@@ -1,11 +1,11 @@
 ;;; emacsconfig --- Custom overrides of emacs config
 ;;; Commentary:
+;;; My custom Emacs config
+;;; Code:
 (require 'helm-config)
 (require 'helm-projectile)
 
-;;; Code:
 (helm-mode 1)
-                                        ; (helm-autoresize-mode 1)
 
 (setq indent-tabs-mode nil)
 (setq tab-width 4)
