@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/purcell/emacs.d.png?branch=master)](https://travis-ci.org/purcell/emacs.d)
+
 # What you need to know about Emacs
 Shortcut | Explanation
 --- | ---
