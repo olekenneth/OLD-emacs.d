@@ -7,7 +7,7 @@ Shortcut | Explanation
 
 Meta is sent by the terminal and is setup differently from terminal to terminal. In cases where terminal doesn't send meta, you have to tap once at escape to send meta-command, so no need to hold it down. In e.g. iTerm2 you have to set option-key to send meta.
 
-#Basic shortcuts
+# Basic shortcuts
 Shortcut | Command
 --- | ---
 `C-x C-c` | Exit
